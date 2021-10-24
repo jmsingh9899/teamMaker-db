@@ -18,7 +18,8 @@
 -- JOIN roles on employee.role_id = roles.id
 -- JOIN department ON roles.department_id = department.id
 -- LEFT JOIN employees as manager 
--- ON employee.manager_id = manager.id;
+-- ON employee.manager_id = manager.id
+-- ORDER BY employee.id;
 
 -- Updates Manager:
 -- UPDATE employees SET manager_id = ? WHERE id = ?;
