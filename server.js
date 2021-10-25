@@ -270,26 +270,26 @@ const removeEmp = async () => {
             employed.push(data[0][i].first_name.concat(' ', data[0][i].last_name, ' ', data[0][i].id))
         }
         return employed
-    }).then((data) => 
-    inquirer.prompt([
-        {
-            type: 'list',
-            message: 'Who would you like to remove',
-            name: 'removed',
-            choices: data
-        }
-    ])).then((res) => {
-        const number = res.removed.split(' ').findIndex(findNum)
-        const selectedEmployee = parseInt(res.removed.split(' ')[number]);
-        db.query(deleteRow('employees', selectedEmployee), (err, data) => {
-            if (err) {
-                throw err
-            } else {
-                console.log('Employee Removed')
-                companyDB();
+    }).then((data) =>
+        inquirer.prompt([
+            {
+                type: 'list',
+                message: 'Who would you like to remove',
+                name: 'removed',
+                choices: data
             }
+        ])).then((res) => {
+            const number = res.removed.split(' ').findIndex(findNum)
+            const selectedEmployee = parseInt(res.removed.split(' ')[number]);
+            db.query(deleteRow('employees', selectedEmployee), (err, data) => {
+                if (err) {
+                    throw err
+                } else {
+                    console.log('Employee Removed')
+                    companyDB();
+                }
+            })
         })
-    })
 }
 
 const removeRole = async () => {
@@ -298,22 +298,40 @@ const removeRole = async () => {
             role.push(data[0][i].title.concat(' ', data[0][i].id))
         }
         return role
-    }).then((data) => 
+    }).then((data) =>
+        inquirer.prompt([
+            {
+                type: 'list',
+                message: 'Which role would you like to remove',
+                name: 'removed',
+                choices: data
+            }
+        ])).then((res) => {
+            const number = res.removed.split(' ').findIndex(findNum)
+            const selectedRole = parseInt(res.removed.split(' ')[number]);
+            db.query(deleteRow('roles', selectedRole), (err, data) => {
+                if (err) {
+                    throw err
+                } else {
+                    console.log('Role Removed')
+                    companyDB();
+                }
+            })
+        })
+}
+const addDepartments = async () => {
     inquirer.prompt([
         {
-            type: 'list',
-            message: 'Which role would you like to remove',
-            name: 'removed',
-            choices: data
+            type: 'input',
+            message: 'What departement would you like to add?',
+            name: 'departs'
         }
-    ])).then((res) => {
-        const number = res.removed.split(' ').findIndex(findNum)
-        const selectedRole = parseInt(res.removed.split(' ')[number]);
-        db.query(deleteRow('roles', selectedRole), (err, data) => {
+    ]).then((res) => {
+        db.query(addDepartment(res.departs), (err, data) => {
             if (err) {
                 throw err
             } else {
-                console.log('Role Removed')
+                console.log('Department added')
                 companyDB();
             }
         })
@@ -326,26 +344,26 @@ const removeDepartment = async () => {
             depart.push(data[0][i].name.concat(' ', data[0][i].id))
         }
         return depart
-    }).then((data) => 
-    inquirer.prompt([
-        {
-            type: 'list',
-            message: 'Which Department would you like to remove?',
-            name: 'removed',
-            choices: data
-        }
-    ])).then((res) => {
-        const number = res.removed.split(' ').findIndex(findNum)
-        const selectedDepartment = parseInt(res.removed.split(' ')[number]);
-        db.query(deleteRow('department', selectedDepartment), (err, data) => {
-            if (err) {
-                throw err
-            } else {
-                console.log('Department Removed')
-                companyDB();
+    }).then((data) =>
+        inquirer.prompt([
+            {
+                type: 'list',
+                message: 'Which Department would you like to remove?',
+                name: 'removed',
+                choices: data
             }
+        ])).then((res) => {
+            const number = res.removed.split(' ').findIndex(findNum)
+            const selectedDepartment = parseInt(res.removed.split(' ')[number]);
+            db.query(deleteRow('department', selectedDepartment), (err, data) => {
+                if (err) {
+                    throw err
+                } else {
+                    console.log('Department Removed')
+                    companyDB();
+                }
+            })
         })
-    })
 }
 
 const companyDB = () => {
@@ -406,6 +424,8 @@ const companyDB = () => {
                 getDepartments();
                 break;
             case "Add Departement":
+                addDepartments();
+                break;
             case "Remove Department":
                 removeDepartment();
                 break;
