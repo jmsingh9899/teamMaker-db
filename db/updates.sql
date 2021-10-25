@@ -46,8 +46,8 @@
 -- DELETE FROM (?) WHERE (? = ?);
 
 -- Shows departments utilized budget
--- SELECT  department.name AS department, SUM(roles.salary) AS 'Utilized Budget'
--- FROM employees
--- JOIN roles on employees.role_id = roles.id
--- JOIN department ON roles.department_id = department.id
--- WHERE roles.department_id = (?);
+SELECT  department.name AS department, SUM(roles.salary) AS 'Utilized Budget'
+FROM employees
+JOIN roles on employees.role_id = roles.id
+JOIN department ON roles.department_id = department.id
+WHERE roles.department_id = 3;

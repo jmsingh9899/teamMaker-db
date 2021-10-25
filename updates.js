@@ -1,9 +1,10 @@
 //Shows department:
+const util = require('util');
 const showDepartments = 'SELECT * FROM department;';
 
 
 //Shows roles infromation and department: 
-const showRoles = 'SELECT roles.id, roles.title,department.name as department, roles.salary FROM roles JOIN department ON roles.department_id = department.id;';
+const showRoles = 'SELECT roles.id, roles.title,department.name as department, roles.salary FROM roles JOIN department ON roles.department_id = department.id ORDER BY roles.id;';
 
 
 
